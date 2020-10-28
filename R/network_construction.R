@@ -7,7 +7,7 @@
 #' @param min_link_size The minimum link size to be included in the network (default is 1).
 #' @param unix_time_origin The origin for the Unix times used in the input file for TILES (defaults to 1970-01-01).
 #'
-#' @return A list with links and nodes.
+#' @return A list with links and nodes. The links are directed and weighted. The nodes are in the format communityID_year, where a single community can persist across multiple years (e.g. 362_1975 -> 362_1976 -> 362_1977).
 #' @export
 #'
 #' @examples original_network <- network_construction(file = "edges.tsv", years = c(1970:1999))

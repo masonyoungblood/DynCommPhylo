@@ -24,7 +24,7 @@ network_construction(
 \item{year}{The years from which TILES snapshots were collected.}
 }
 \value{
-A list with links and nodes.
+A list with links and nodes. The links are directed and weighted. The nodes are in the format communityID_year, where a single community can persist across multiple years (e.g. 362_1975 -> 362_1976 -> 362_1977).
 }
 \description{
 Convert the output of the TILES dynamic community detection algorithm to a network where each node is a community and each link is the number of individuals moving between communities. The R workspace needs to include both the input file and a subdirectory called "output" that has the unzipped graph and strong-communities output files
