@@ -1,5 +1,5 @@
 #' @title Network Construction
-#' @description Convert the output of the TILES dynamic community detection algorithm to a network where each node is a community and each link is the number of individuals moving between communities. Your workspace needs to include the unzipped graph and strong-communities output files from TILES.
+#' @description Convert the output of the TILES dynamic community detection algorithm to a network where each node is a community and each link is the number of individuals moving between communities. The R workspace needs to include both the input file and a subdirectory called "output" that has the unzipped graph and strong-communities output files
 #'
 #' @param file The input file used for TILES, in the format specified by \url{https://github.com/GiulioRossetti/TILES}.
 #' @param year The years from which TILES snapshots were collected.
@@ -29,8 +29,8 @@ network_construction <- function(file, years, min_group_size = 1, min_link_size 
     }
 
     #import and process TILES output files
-    strong_comm_i <- read.table(file = paste0("strong-communities-", years[i]-years[1]), sep = "\t", stringsAsFactors = FALSE)
-    graph_i <- read.table(file = paste0("graph-", years[i]-years[1]), sep = "\t", stringsAsFactors = FALSE)[,1:2]
+    strong_comm_i <- read.table(file = paste0("output/strong-communities-", years[i]-years[1]), sep = "\t", stringsAsFactors = FALSE)
+    graph_i <- read.table(file = paste0("output/graph-", years[i]-years[1]), sep = "\t", stringsAsFactors = FALSE)[,1:2]
     l_i <- data.table::data.table(community = paste0(strong_comm_i[,1], "_", years[i]), individuals = regmatches(strong_comm_i[,2], gregexpr("[[:digit:]]+", strong_comm_i[,2])))
 
     #expand community membership to peripheral members

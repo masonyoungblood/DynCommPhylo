@@ -10,7 +10,7 @@ install.packages("devtools")
 devtools::install_github("masonyoungblood/DynCommPhylo")
 ```
 
-In order to use the functions included in this package, you need to have already analyzed your data with the Python implementation of [TILES](https://github.com/GiulioRossetti/TILES). Both the input file and the graph and strong-communities output files should be unzipped and included in the R workspace. A basic example of the core functions is below:
+In order to use the functions included in this package, you need to have already analyzed your data with the Python implementation of [TILES](https://github.com/GiulioRossetti/TILES). The R workspace needs to include both the input file and a subdirectory called ``output'' that has the unzipped graph and strong-communities output files. A basic example of the core functions is below:
 
 ```
 original_network <- network_construction(file = "edges.tsv", years = c(1970:1999))
@@ -22,7 +22,7 @@ The plotted phylogeny ([D3.js](https://d3js.org/) sankey plot) can be saved as a
 
 ```
 htmlwidgets::saveWidget(plot, file = "phylogeny.html", title = "Phylogeny")
-r2d3::save_d3_png(plot, file = "phylo.png", background = "white", width = 1000, height = 600, delay = 1, zoom = 10)
+r2d3::save_d3_png(plot, file = "phylogeny.png", background = "white", width = 1000, height = 600, delay = 1, zoom = 10)
 ```
 
 For more details about the methods in this package, check out the corresponding manuscript:

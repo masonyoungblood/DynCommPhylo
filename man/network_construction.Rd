@@ -27,7 +27,7 @@ network_construction(
 A list with links and nodes.
 }
 \description{
-Convert the output of the TILES dynamic community detection algorithm to a network where each node is a community and each link is the number of individuals moving between communities. Your workspace needs to include the unzipped graph and strong-communities output files from TILES.
+Convert the output of the TILES dynamic community detection algorithm to a network where each node is a community and each link is the number of individuals moving between communities. The R workspace needs to include both the input file and a subdirectory called "output" that has the unzipped graph and strong-communities output files
 }
 \examples{
 original_network <- network_construction(file = "edges.tsv", years = c(1970:1999))
