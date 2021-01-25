@@ -3,12 +3,13 @@
 #'
 #' @param links The links from the original network.
 #' @param nodes The nodes from the original network.
+#' @param method The clustering method used for network simplification (defaults to `cluster_fast_greedy`, but also accepts `cluster_louvain`, `cluster_edge_betweenness`, `cluster_walktrap`, `cluster_label_prop`, `cluster_spinglass`, `cluster_leading_eigen`, `cluster_infomap`). See igraph documentation for details.
 #'
 #' @return A list with links and nodes, as well as the proportion of communities included in the largest connected component and the modularity of the simplified network. The links are directed and weighted. The nodes are in the format populationID_year, where a single population can persist across multiple years (e.g. 24_1975 -> 24_1976 -> 24_1977).
 #' @export
 #'
 #' @examples simplified_network <- network_simplification(links = original_network$links, nodes = original_network$nodes)
-network_simplification <- function(links, nodes){
+network_simplification <- function(links, nodes, method = "cluster_fast_greedy"){
   cat("Extracting largest component --- ")
 
   #convert links to igraph object
@@ -23,8 +24,31 @@ network_simplification <- function(links, nodes){
   #store the proportion of network in largest component
   prop_in_component <- length(unique(gsub("_.*", "", names(igraph::V(component)))))/length(unique(gsub("_.*", "", names(igraph::V(graph)))))
 
-  #run fast greedy modularity optimization
-  cluster_output <- igraph::cluster_fast_greedy(component, weights = igraph::E(component)$value)
+  #run chosen clustering algorithm
+  if(method == "cluster_fast_greedy"){
+    cluster_output <- igraph::cluster_fast_greedy(component, weights = igraph::E(component)$value)
+  }
+  if(method == "cluster_louvain"){
+    cluster_output <- igraph::cluster_louvain(component, weights = igraph::E(component)$value)
+  }
+  if(method == "cluster_edge_betweenness"){
+    cluster_output <- igraph::cluster_edge_betweenness(component, weights = igraph::E(component)$value)
+  }
+  if(method == "cluster_walktrap"){
+    cluster_output <- igraph::cluster_walktrap(component, weights = igraph::E(component)$value)
+  }
+  if(method == "cluster_label_prop"){
+    cluster_output <- igraph::cluster_label_prop(component, weights = igraph::E(component)$value)
+  }
+  if(method == "cluster_spinglass"){
+    cluster_output <- igraph::cluster_spinglass(component, weights = igraph::E(component)$value)
+  }
+  if(method == "cluster_leading_eigen"){
+    cluster_output <- igraph::cluster_leading_eigen(component, weights = igraph::E(component)$value)
+  }
+  if(method == "cluster_infomap"){
+    cluster_output <- igraph::cluster_infomap(component, e.weights = igraph::E(component)$value)
+  }
 
   #store modularity
   modularity <- igraph::modularity(cluster_output)
