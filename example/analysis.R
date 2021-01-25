@@ -10,7 +10,7 @@ library(DynCommPhylo)
 original_network <- network_construction(file = "edges.tsv", years = c(1970:1999))
 
 #simplify network
-simplified_network <- network_simplification(links = original_network$links, nodes = original_network$nodes)
+simplified_network <- network_simplification(links = original_network$links, nodes = original_network$nodes, method = "cluster_fast_greedy")
 
 # RUN LDA + GENERATE PLOT CAPTIONS ----------------------------------------
 
