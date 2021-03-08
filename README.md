@@ -27,4 +27,4 @@ r2d3::save_d3_png(plot, file = "phylogeny.png", background = "white", width = 10
 
 For more details about the methods in this package, check out the corresponding manuscript:
 
-Youngblood, M., Baraghith, K., & Savage, P. E. (2020). Phylogenetic reconstruction of the cultural evolution of electronic music via dynamic community detection (1975–1999). *In preparation*.
+Youngblood, M., Baraghith, K., & Savage, P. E. (2020). Phylogenetic reconstruction of the cultural evolution of electronic music via dynamic community detection (1975–1999). *arXiv*: [2011.02460](https://arxiv.org/abs/2011.02460)
