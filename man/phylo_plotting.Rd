@@ -23,6 +23,3 @@ A D3.js sankey plot that can be saved as an interactive HTML file using \emph{ht
 \description{
 Plot a phylogeny based on either the original or simplified network.
 }
-\examples{
-plot <- phylo_plotting(links = simplified_network$links, nodes = simplified_network$nodes)
-}

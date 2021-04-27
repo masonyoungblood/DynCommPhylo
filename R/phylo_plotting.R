@@ -10,7 +10,6 @@
 #' @return A D3.js sankey plot that can be saved as an interactive HTML file using \emph{htmlwidgets} or a static PNG file using \emph{r2d3}.
 #' @export
 #'
-#' @examples plot <- phylo_plotting(links = simplified_network$links, nodes = simplified_network$nodes)
 phylo_plotting <- function(links, nodes, captions = NULL, iterations = 25, nodePadding = 3){
   #change first colname to group so that function is compatible with unsimplified and simplified network
   colnames(nodes) <- c("group", "individuals")

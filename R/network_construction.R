@@ -11,7 +11,6 @@
 #' @return A list with links and nodes. The links are directed and weighted. The nodes are in the format communityID_year, where a single community can persist across multiple years (e.g. 362_1975 -> 362_1976 -> 362_1977).
 #' @export
 #'
-#' @examples original_network <- network_construction(file = "edges.tsv", years = c(1970:1999))
 network_construction <- function(file, first_year, plot_years, min_group_size = 1, min_link_size = 1, unix_time_origin = "1970-01-01"){
   cat("Loading TILES input file --- ")
 

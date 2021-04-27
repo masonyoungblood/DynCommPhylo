@@ -8,7 +8,6 @@
 #' @return A list with links and nodes, as well as the proportion of communities included in the largest connected component and the modularity of the simplified network. The links are directed and weighted. The nodes are in the format populationID_year, where a single population can persist across multiple years (e.g. 24_1975 -> 24_1976 -> 24_1977).
 #' @export
 #'
-#' @examples simplified_network <- network_simplification(links = original_network$links, nodes = original_network$nodes)
 network_simplification <- function(links, nodes, method = "cluster_fast_greedy"){
   cat("Extracting largest component --- ")
 

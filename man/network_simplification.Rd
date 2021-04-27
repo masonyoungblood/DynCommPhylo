@@ -19,6 +19,3 @@ A list with links and nodes, as well as the proportion of communities included i
 \description{
 Extract the largest connected component of the original network and simplify it using the fast greedy modularity optimization algorithm into a network where each node is a population and each link is the number of individuals moving between populations.
 }
-\examples{
-simplified_network <- network_simplification(links = original_network$links, nodes = original_network$nodes)
-}
