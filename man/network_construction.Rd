@@ -6,7 +6,8 @@
 \usage{
 network_construction(
   file,
-  years,
+  first_year,
+  plot_years,
   min_group_size = 1,
   min_link_size = 1,
   unix_time_origin = "1970-01-01"
@@ -15,13 +16,15 @@ network_construction(
 \arguments{
 \item{file}{The input file used for TILES, in the format specified by \url{https://github.com/GiulioRossetti/TILES}.}
 
+\item{first_year}{The first year from the TILES input file.}
+
+\item{plot_years}{The years to include in the network.}
+
 \item{min_group_size}{The minimum group size to be included in the network (default is 1).}
 
 \item{min_link_size}{The minimum link size to be included in the network (default is 1).}
 
 \item{unix_time_origin}{The origin for the Unix times used in the input file for TILES (defaults to 1970-01-01).}
-
-\item{year}{The years from which TILES snapshots were collected.}
 }
 \value{
 A list with links and nodes. The links are directed and weighted. The nodes are in the format communityID_year, where a single community can persist across multiple years (e.g. 362_1975 -> 362_1976 -> 362_1977).

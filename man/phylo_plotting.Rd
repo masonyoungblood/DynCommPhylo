@@ -13,7 +13,9 @@ phylo_plotting(links, nodes, captions = NULL, iterations = 25, nodePadding = 3)
 
 \item{captions}{The captions that will appear when you hover over each node in the phylogeny.}
 
-\item{iterations}{The vertical padding between nodes in the sankey plot (default is 3).}
+\item{iterations}{The number of iterations used to optimize the sankey plot (default is 25).}
+
+\item{nodePadding}{The vertical padding between nodes in the sankey plot (default is 3).}
 }
 \value{
 A D3.js sankey plot that can be saved as an interactive HTML file using \emph{htmlwidgets} or a static PNG file using \emph{r2d3}.

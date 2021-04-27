@@ -2,7 +2,8 @@
 #' @description Convert the output of the TILES dynamic community detection algorithm to a network where each node is a community and each link is the number of individuals moving between communities. The R workspace needs to include both the input file and a subdirectory called "output" that has the unzipped graph and strong-communities output files
 #'
 #' @param file The input file used for TILES, in the format specified by \url{https://github.com/GiulioRossetti/TILES}.
-#' @param year The years from which TILES snapshots were collected.
+#' @param first_year The first year from the TILES input file.
+#' @param plot_years The years to include in the network.
 #' @param min_group_size The minimum group size to be included in the network (default is 1).
 #' @param min_link_size The minimum link size to be included in the network (default is 1).
 #' @param unix_time_origin The origin for the Unix times used in the input file for TILES (defaults to 1970-01-01).
@@ -11,7 +12,7 @@
 #' @export
 #'
 #' @examples original_network <- network_construction(file = "edges.tsv", years = c(1970:1999))
-network_construction <- function(file, years, min_group_size = 1, min_link_size = 1, unix_time_origin = "1970-01-01"){
+network_construction <- function(file, first_year, plot_years, min_group_size = 1, min_link_size = 1, unix_time_origin = "1970-01-01"){
   cat("Loading TILES input file --- ")
 
   #import the input file used for TILES, to ensure that there are no communities that persist past their timepoints (documented TILES issue)
@@ -22,16 +23,16 @@ network_construction <- function(file, years, min_group_size = 1, min_link_size 
   cat("Starting processing loop --- ")
 
   #begin processing loop
-  for(i in 1:(length(years))){
+  for(i in 1:(length(plot_years))){
     #store previous year as l_i_1 (as in l_i-1)
     if(i > 1){
       l_i_1 <- l_i
     }
 
     #import and process TILES output files
-    strong_comm_i <- read.table(file = paste0("output/strong-communities-", years[i]-years[1]), sep = "\t", stringsAsFactors = FALSE)
-    graph_i <- read.table(file = paste0("output/graph-", years[i]-years[1]), sep = "\t", stringsAsFactors = FALSE)[,1:2]
-    l_i <- data.table::data.table(community = paste0(strong_comm_i[,1], "_", years[i]), individuals = regmatches(strong_comm_i[,2], gregexpr("[[:digit:]]+", strong_comm_i[,2])))
+    strong_comm_i <- read.table(file = paste0("output/strong-communities-", plot_years[i]-first_year), sep = "\t", stringsAsFactors = FALSE)
+    graph_i <- read.table(file = paste0("output/graph-", plot_years[i]-first_year), sep = "\t", stringsAsFactors = FALSE)[,1:2]
+    l_i <- data.table::data.table(community = paste0(strong_comm_i[,1], "_", plot_years[i]), individuals = regmatches(strong_comm_i[,2], gregexpr("[[:digit:]]+", strong_comm_i[,2])))
 
     #expand community membership to peripheral members
     for(j in 1:nrow(l_i)){
@@ -46,7 +47,7 @@ network_construction <- function(file, years, min_group_size = 1, min_link_size 
     l_i_individuals <- unique(unlist(l_i$individuals))
 
     #identify individuals that appear outside their timepoints (documented TILES issue) so they can be removed
-    l_i_stragglers <- setdiff(l_i_individuals, unique(c(edges[which(edges$year == years[i]),]$node1, edges[which(edges$year == years[i]),]$node2)))
+    l_i_stragglers <- setdiff(l_i_individuals, unique(c(edges[which(edges$year == plot_years[i]),]$node1, edges[which(edges$year == plot_years[i]),]$node2)))
 
     #get network density for every group in l_i_
     l_i_nd <- c()
@@ -115,7 +116,7 @@ network_construction <- function(file, years, min_group_size = 1, min_link_size 
     }
 
     #print year
-    cat(paste0(years[i], "..."))
+    cat(paste0(plot_years[i], "..."))
   }
 
   colnames(links) <- c("from", "to", "value")
