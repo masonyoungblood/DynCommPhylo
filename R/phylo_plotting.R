@@ -39,8 +39,7 @@ phylo_plotting <- function(links, nodes, captions = NULL, iterations = 25, nodeP
   links$to <- nodes$node[match(links$to, nodes$group)]
 
   #remove year from population
-  nodes[,1] <- gsub("_.*", "", nodes$group)
-  colnames(nodes[,1]) <- "group"
+  nodes$group <- gsub("_.*", "", nodes$group)
 
   #plot
   plot <- sankeyD3::sankeyNetwork(Links = links, Nodes = nodes, NodePosX = "x",
