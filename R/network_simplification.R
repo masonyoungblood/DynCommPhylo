@@ -98,7 +98,7 @@ network_simplification <- function(links, nodes, method = "cluster_fast_greedy")
 
   #restore nodes and eliminate duplicates
   nodes <- populations[, 2:3]
-  nodes <- nodes[-which(duplicated(nodes$population))]
+  nodes <- nodes[-which(duplicated(nodes$population)), ]
 
   cat("Done!")
 
